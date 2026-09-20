@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_172108) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_20_222028) do
+  create_table "check_ins", force: :cascade do |t|
+    t.boolean "completed"
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.integer "goal_id", null: false
+    t.text "note"
+    t.datetime "updated_at", null: false
+    t.index ["goal_id"], name: "index_check_ins_on_goal_id"
+  end
+
   create_table "goals", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "frequency"
@@ -31,5 +41,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_172108) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "check_ins", "goals"
   add_foreign_key "goals", "users"
 end
